@@ -1,6 +1,6 @@
 import { Anthropic } from '@lobehub/icons'; //Anthropic, Claude
 import { Input } from 'antd';
-import { useTheme } from 'antd-style';
+//import { useTheme } from 'antd-style';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -19,7 +19,7 @@ const providerKey = 'anthropic';
 const AnthropicProvider = memo(() => {
   const { t } = useTranslation('setting');
 
-  const theme = useTheme();
+  //const theme = useTheme();
 
   return (
     <ProviderConfig
