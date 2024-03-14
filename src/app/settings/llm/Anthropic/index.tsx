@@ -56,7 +56,7 @@ const AnthropicProvider = memo(() => {
       provider={providerKey}
       title={
         <Anthropic.Text
-          color={theme.isDarkMode ? theme.colorText : Anthropic.colorPrimary} //Claude
+          //color={theme.isDarkMode ? theme.colorText : Claude.colorPrimary} 
           size={18}
         />
       }
