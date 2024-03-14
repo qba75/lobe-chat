@@ -1,4 +1,4 @@
-import { Anthropic } from '@lobehub/icons'; //Anthropic, Claude
+import { Anthropic, Claude } from '@lobehub/icons'; 
 import { Input } from 'antd';
 //import { useTheme } from 'antd-style';
 import { memo } from 'react';
@@ -55,8 +55,8 @@ const AnthropicProvider = memo(() => {
       ]}
       provider={providerKey}
       title={
-        <Anthropic.Text
-          //color={theme.isDarkMode ? theme.colorText : Claude.colorPrimary} 
+        <Anthropic.Combine
+          color={theme.isDarkMode ? theme.colorText : Claude.colorPrimary} 
           size={18}
         />
       }
