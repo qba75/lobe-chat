@@ -19,7 +19,7 @@ const providerKey = 'anthropic';
 const AnthropicProvider = memo(() => {
   const { t } = useTranslation('setting');
 
-  //const theme = useTheme();
+  const theme = useTheme();
 
   return (
     <ProviderConfig
