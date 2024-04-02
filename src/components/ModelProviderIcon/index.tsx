@@ -3,11 +3,15 @@ import {
   Azure,
   Bedrock,
   Google,
+  Groq,
   Mistral,
   Moonshot,
   Ollama,
   OpenAI,
+  OpenRouter,
   Perplexity,
+  Together,
+  ZeroOne,
   Zhipu,
 } from '@lobehub/icons';
 import { memo } from 'react';
@@ -67,6 +71,22 @@ const ModelProviderIcon = memo<ModelProviderIconProps>(({ provider }) => {
 
     case ModelProvider.Anthropic: {
       return <Anthropic size={20} />;
+    }
+
+    case ModelProvider.Groq: {
+      return <Groq size={20} />;
+    }
+
+    case ModelProvider.OpenRouter: {
+      return <OpenRouter size={20} />;
+    }
+
+    case ModelProvider.ZeroOne: {
+      return <ZeroOne size={20} />;
+    }
+
+    case ModelProvider.TogetherAI: {
+      return <Together size={20} />;
     }
 
     default: {

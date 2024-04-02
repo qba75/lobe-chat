@@ -13,12 +13,16 @@ import {
   LobeAzureOpenAI,
   LobeBedrockAI,
   LobeGoogleAI,
+  LobeGroq,
   LobeMistralAI,
   LobeMoonshotAI,
   LobeOllamaAI,
   LobeOpenAI,
+  LobeOpenRouterAI,
   LobePerplexityAI,
   LobeRuntimeAI,
+  LobeTogetherAI,
+  LobeZeroOneAI,
   LobeZhipuAI,
   ModelProvider,
 } from '@/libs/agent-runtime';
@@ -162,9 +166,29 @@ class AgentRuntime {
         runtimeModel = this.initAnthropic(payload);
         break;
       }
-      
+
       case ModelProvider.Mistral: {
         runtimeModel = this.initMistral(payload);
+        break;
+      }
+
+      case ModelProvider.Groq: {
+        runtimeModel = this.initGroq(payload);
+        break;
+      }
+
+      case ModelProvider.OpenRouter: {
+        runtimeModel = this.initOpenRouter(payload);
+        break;
+      }
+
+      case ModelProvider.TogetherAI: {
+        runtimeModel = this.initTogetherAI(payload);
+        break;
+      }
+
+      case ModelProvider.ZeroOne: {
+        runtimeModel = this.initZeroOne(payload);
         break;
       }
     }
@@ -261,12 +285,40 @@ class AgentRuntime {
     const baseURL = payload?.endpoint || ANTHROPIC_PROXY_URL;
     return new LobeAnthropicAI({ apiKey, baseURL });
   }
-  
+
   private static initMistral(payload: JWTPayload) {
     const { MISTRAL_API_KEY } = getServerConfig();
     const apiKey = apiKeyManager.pick(payload?.apiKey || MISTRAL_API_KEY);
 
     return new LobeMistralAI({ apiKey });
+  }
+
+  private static initGroq(payload: JWTPayload) {
+    const { GROQ_API_KEY } = getServerConfig();
+    const apiKey = apiKeyManager.pick(payload?.apiKey || GROQ_API_KEY);
+
+    return new LobeGroq({ apiKey });
+  }
+
+  private static initOpenRouter(payload: JWTPayload) {
+    const { OPENROUTER_API_KEY } = getServerConfig();
+    const apiKey = apiKeyManager.pick(payload?.apiKey || OPENROUTER_API_KEY);
+
+    return new LobeOpenRouterAI({ apiKey });
+  }
+
+  private static initTogetherAI(payload: JWTPayload) {
+    const { TOGETHERAI_API_KEY } = getServerConfig();
+    const apiKey = apiKeyManager.pick(payload?.apiKey || TOGETHERAI_API_KEY);
+
+    return new LobeTogetherAI({ apiKey });
+  }
+
+  private static initZeroOne(payload: JWTPayload) {
+    const { ZEROONE_API_KEY } = getServerConfig();
+    const apiKey = apiKeyManager.pick(payload?.apiKey || ZEROONE_API_KEY);
+
+    return new LobeZeroOneAI({ apiKey });
   }
 }
 

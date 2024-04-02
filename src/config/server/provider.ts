@@ -36,9 +36,22 @@ declare global {
       // Anthropic Provider
       ANTHROPIC_API_KEY?: string;
       ANTHROPIC_PROXY_URL?: string;
-      
+
       // Mistral Provider
       MISTRAL_API_KEY?: string;
+
+      // Groq Provider
+      GROQ_API_KEY?: string;
+
+      // OpenRouter Provider
+      OPENROUTER_API_KEY?: string;
+      OPENROUTER_CUSTOM_MODELS?: string;
+
+      // ZeroOne Provider
+      ZEROONE_API_KEY?: string;
+
+      // TogetherAI Provider
+      TOGETHERAI_API_KEY?: string;
 
       // AWS Credentials
       AWS_REGION?: string;
@@ -47,6 +60,7 @@ declare global {
 
       // Ollama Provider;
       OLLAMA_PROXY_URL?: string;
+      OLLAMA_CUSTOM_MODELS?: string;
     }
   }
 }
@@ -66,8 +80,16 @@ export const getProviderConfig = () => {
   const PERPLEXITY_API_KEY = process.env.PERPLEXITY_API_KEY || '';
 
   const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY || '';
-  
+
   const MISTRAL_API_KEY = process.env.MISTRAL_API_KEY || '';
+
+  const GROQ_API_KEY = process.env.GROQ_API_KEY || '';
+
+  const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || '';
+
+  const ZEROONE_API_KEY = process.env.ZEROONE_API_KEY || '';
+
+  const TOGETHERAI_API_KEY = process.env.TOGETHERAI_API_KEY || '';
 
   // region format: iad1,sfo1
   let regions: string[] = [];
@@ -96,13 +118,26 @@ export const getProviderConfig = () => {
     ENABLED_ANTHROPIC: !!ANTHROPIC_API_KEY,
     ANTHROPIC_API_KEY,
     ANTHROPIC_PROXY_URL: process.env.ANTHROPIC_PROXY_URL,
-    
+
     ENABLED_MISTRAL: !!MISTRAL_API_KEY,
     MISTRAL_API_KEY,
+
+    ENABLED_OPENROUTER: !!OPENROUTER_API_KEY,
+    OPENROUTER_API_KEY,
+    OPENROUTER_CUSTOM_MODELS: process.env.OPENROUTER_CUSTOM_MODELS,
+
+    ENABLED_TOGETHERAI: !!TOGETHERAI_API_KEY,
+    TOGETHERAI_API_KEY,
 
     ENABLED_MOONSHOT: !!MOONSHOT_API_KEY,
     MOONSHOT_API_KEY,
     MOONSHOT_PROXY_URL: process.env.MOONSHOT_PROXY_URL,
+
+    ENABLED_GROQ: !!GROQ_API_KEY,
+    GROQ_API_KEY,
+
+    ENABLED_ZEROONE: !!ZEROONE_API_KEY,
+    ZEROONE_API_KEY,
 
     ENABLED_AWS_BEDROCK: !!AWS_ACCESS_KEY_ID,
     AWS_REGION: process.env.AWS_REGION,
@@ -116,5 +151,6 @@ export const getProviderConfig = () => {
 
     ENABLE_OLLAMA: !!process.env.OLLAMA_PROXY_URL,
     OLLAMA_PROXY_URL: process.env.OLLAMA_PROXY_URL || '',
+    OLLAMA_CUSTOM_MODELS: process.env.OLLAMA_CUSTOM_MODELS,
   };
 };

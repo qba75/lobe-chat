@@ -5,6 +5,7 @@ import {
   Claude,
   Gemini,
   Gemma,
+  LLaVA,
   Meta,
   Minimax,
   Mistral,
@@ -12,6 +13,7 @@ import {
   OpenAI,
   Perplexity,
   Tongyi,
+  ZeroOne,
 } from '@lobehub/icons';
 import { memo } from 'react';
 
@@ -28,6 +30,7 @@ const ModelIcon = memo<ModelIconProps>(({ model, size = 12 }) => {
   if (model.includes('claude')) return <Claude size={size} />;
   if (model.includes('titan')) return <Aws size={size} />;
   if (model.includes('llama')) return <Meta size={size} />;
+  if (model.includes('llava')) return <LLaVA size={size} />;
   if (model.includes('gemini')) return <Gemini size={size} />;
   if (model.includes('gemma')) return <Gemma.Simple size={size} />;
   if (model.includes('moonshot')) return <Moonshot size={size} />;
@@ -36,6 +39,7 @@ const ModelIcon = memo<ModelIconProps>(({ model, size = 12 }) => {
   if (model.includes('baichuan')) return <Baichuan size={size} />;
   if (model.includes('mistral') || model.includes('mixtral')) return <Mistral size={size} />;
   if (model.includes('pplx')) return <Perplexity size={size} />;
+  if (model.startsWith('yi-')) return <ZeroOne size={size} />;
 });
 
 export default ModelIcon;
