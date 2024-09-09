@@ -1,4 +1,5 @@
 import {
+  Ai360ProviderCard,
   AnthropicProviderCard,
   BaichuanProviderCard,
   BedrockProviderCard,
@@ -8,14 +9,17 @@ import {
   MinimaxProviderCard,
   MistralProviderCard,
   MoonshotProviderCard,
+  NovitaProviderCard,
   OllamaProviderCard,
   OpenAIProviderCard,
   OpenRouterProviderCard,
   PerplexityProviderCard,
   QwenProviderCard,
+  SiliconCloudProviderCard,
   StepfunProviderCard,
   TaichuProviderCard,
   TogetherAIProviderCard,
+  UpstageProviderCard,
   ZeroOneProviderCard,
   ZhiPuProviderCard,
   filterEnabledModels,
@@ -24,6 +28,10 @@ import { ModelProvider } from '@/libs/agent-runtime';
 import { UserModelProviderConfig } from '@/types/user/settings';
 
 export const DEFAULT_LLM_CONFIG: UserModelProviderConfig = {
+  ai360: {
+    enabled: false,
+    enabledModels: filterEnabledModels(Ai360ProviderCard),
+  },
   anthropic: {
     enabled: false,
     enabledModels: filterEnabledModels(AnthropicProviderCard),
@@ -63,6 +71,10 @@ export const DEFAULT_LLM_CONFIG: UserModelProviderConfig = {
     enabled: false,
     enabledModels: filterEnabledModels(MoonshotProviderCard),
   },
+  novita: {
+    enabled: false,
+    enabledModels: filterEnabledModels(NovitaProviderCard),
+  },
   ollama: {
     enabled: true,
     enabledModels: filterEnabledModels(OllamaProviderCard),
@@ -84,6 +96,10 @@ export const DEFAULT_LLM_CONFIG: UserModelProviderConfig = {
     enabled: false,
     enabledModels: filterEnabledModels(QwenProviderCard),
   },
+  siliconcloud: {
+    enabled: false,
+    enabledModels: filterEnabledModels(SiliconCloudProviderCard),
+  },
   stepfun: {
     enabled: false,
     enabledModels: filterEnabledModels(StepfunProviderCard),
@@ -96,6 +112,10 @@ export const DEFAULT_LLM_CONFIG: UserModelProviderConfig = {
     enabled: false,
     enabledModels: filterEnabledModels(TogetherAIProviderCard),
   },
+  upstage: {
+    enabled: false,
+    enabledModels: filterEnabledModels(UpstageProviderCard),
+  },
   zeroone: {
     enabled: false,
     enabledModels: filterEnabledModels(ZeroOneProviderCard),
@@ -106,6 +126,7 @@ export const DEFAULT_LLM_CONFIG: UserModelProviderConfig = {
   },
 };
 
-export const DEFAULT_MODEL = 'gpt-3.5-turbo';
+export const DEFAULT_MODEL = 'gpt-4o-mini';
+export const DEFAULT_EMBEDDING_MODEL = 'text-embedding-3-small';
 
 export const DEFAULT_PROVIDER = ModelProvider.OpenAI;

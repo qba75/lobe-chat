@@ -3,6 +3,7 @@ import { ClientOptions } from 'openai';
 import type { TracePayload } from '@/const/trace';
 
 import { LobeRuntimeAI } from './BaseAI';
+import { LobeAi360AI } from './ai360';
 import { LobeAnthropicAI } from './anthropic';
 import { LobeAzureOpenAI } from './azureOpenai';
 import { LobeBaichuanAI } from './baichuan';
@@ -13,17 +14,22 @@ import { LobeGroq } from './groq';
 import { LobeMinimaxAI } from './minimax';
 import { LobeMistralAI } from './mistral';
 import { LobeMoonshotAI } from './moonshot';
+import { LobeNovitaAI } from './novita';
 import { LobeOllamaAI } from './ollama';
 import { LobeOpenAI } from './openai';
 import { LobeOpenRouterAI } from './openrouter';
 import { LobePerplexityAI } from './perplexity';
 import { LobeQwenAI } from './qwen';
+import { LobeSiliconCloudAI } from './siliconcloud';
 import { LobeStepfunAI } from './stepfun';
 import { LobeTaichuAI } from './taichu';
 import { LobeTogetherAI } from './togetherai';
+import { LobeUpstageAI } from './upstage';
 import {
   ChatCompetitionOptions,
   ChatStreamPayload,
+  EmbeddingsOptions,
+  EmbeddingsPayload,
   ModelProvider,
   TextToImagePayload,
 } from './types';
@@ -75,12 +81,17 @@ class AgentRuntime {
   async chat(payload: ChatStreamPayload, options?: ChatCompetitionOptions) {
     return this._runtime.chat(payload, options);
   }
+
   async textToImage(payload: TextToImagePayload) {
     return this._runtime.textToImage?.(payload);
   }
 
   async models() {
     return this._runtime.models?.();
+  }
+
+  async embeddings(payload: EmbeddingsPayload, options?: EmbeddingsOptions) {
+    return this._runtime.embeddings?.(payload, options);
   }
 
   /**
@@ -103,6 +114,7 @@ class AgentRuntime {
   static async initializeWithProviderOptions(
     provider: string,
     params: Partial<{
+      ai360: Partial<ClientOptions>;
       anthropic: Partial<ClientOptions>;
       azure: { apiVersion?: string; apikey?: string; endpoint?: string };
       baichuan: Partial<ClientOptions>;
@@ -113,14 +125,17 @@ class AgentRuntime {
       minimax: Partial<ClientOptions>;
       mistral: Partial<ClientOptions>;
       moonshot: Partial<ClientOptions>;
+      novita: Partial<ClientOptions>;
       ollama: Partial<ClientOptions>;
       openai: Partial<ClientOptions>;
       openrouter: Partial<ClientOptions>;
       perplexity: Partial<ClientOptions>;
       qwen: Partial<ClientOptions>;
+      siliconcloud: Partial<ClientOptions>;
       stepfun: Partial<ClientOptions>;
       taichu: Partial<ClientOptions>;
       togetherai: Partial<ClientOptions>;
+      upstage: Partial<ClientOptions>;
       zeroone: Partial<ClientOptions>;
       zhipu: Partial<ClientOptions>;
     }>,
@@ -224,14 +239,34 @@ class AgentRuntime {
         break;
       }
 
+      case ModelProvider.Novita: {
+        runtimeModel = new LobeNovitaAI(params.novita ?? {});
+        break;
+      }
+
       case ModelProvider.Baichuan: {
-        runtimeModel = new LobeBaichuanAI(params.baichuan);
+        runtimeModel = new LobeBaichuanAI(params.baichuan ?? {});
         break;
       }
 
       case ModelProvider.Taichu: {
         runtimeModel = new LobeTaichuAI(params.taichu);
         break;
+      }
+
+      case ModelProvider.Ai360: {
+        runtimeModel = new LobeAi360AI(params.ai360 ?? {});
+        break;
+      }
+
+      case ModelProvider.SiliconCloud: {
+        runtimeModel = new LobeSiliconCloudAI(params.siliconcloud ?? {});
+        break;
+      }
+
+      case ModelProvider.Upstage: {
+        runtimeModel = new LobeUpstageAI(params.upstage);
+        break
       }
     }
 

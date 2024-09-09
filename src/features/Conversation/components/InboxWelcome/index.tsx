@@ -6,6 +6,7 @@ import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Center, Flexbox } from 'react-layout-kit';
 
+import { BRANDING_NAME } from '@/const/branding';
 import { useGreeting } from '@/hooks/useGreeting';
 import { featureFlagsSelectors, useServerConfigStore } from '@/store/serverConfig';
 
@@ -42,7 +43,7 @@ const InboxWelcome = memo(() => {
   const { styles } = useStyles();
   const mobile = useServerConfigStore((s) => s.isMobile);
   const greeting = useGreeting();
-  const { showWelcomeSuggest } = useServerConfigStore(featureFlagsSelectors);
+  const { showWelcomeSuggest, showCreateSession } = useServerConfigStore(featureFlagsSelectors);
 
   return (
     <Center padding={16} width={'100%'}>
@@ -52,7 +53,9 @@ const InboxWelcome = memo(() => {
           <h1 className={styles.title}>{greeting}</h1>
         </Flexbox>
         <Markdown className={styles.desc} variant={'chat'}>
-          {t('guide.defaultMessage')}
+          {t(showCreateSession ? 'guide.defaultMessage' : 'guide.defaultMessageWithoutCreate', {
+            appName: BRANDING_NAME,
+          })}
         </Markdown>
         {showWelcomeSuggest && (
           <>
